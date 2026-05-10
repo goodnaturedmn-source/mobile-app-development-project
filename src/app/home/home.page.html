@@ -1,15 +1,24 @@
 <ion-header>
   <ion-toolbar color="dark">
-    <ion-title>
-      Movie App
-    </ion-title>
+    <ion-title>G00439365 Movie App</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <h1>Trending Movies</h1>
+  <h2>Today's Trending Movies</h2>
 
-  <p>
-    Welcome to the Movie Application Project.
-  </p>
+  <ion-card *ngFor="let movie of movies">
+    <img
+      *ngIf="movie.poster_path"
+      [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+    />
+
+    <ion-card-header>
+      <ion-card-title>{{ movie.title }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      {{ movie.overview }}
+    </ion-card-content>
+  </ion-card>
 </ion-content>
