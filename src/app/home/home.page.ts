@@ -15,7 +15,9 @@ import {
   IonCardTitle,
   IonCardContent,
   IonSearchbar,
-  IonButton
+  IonButton,
+  IonButtons,
+  IonIcon
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -35,7 +37,9 @@ import {
     IonCardTitle,
     IonCardContent,
     IonSearchbar,
-    IonButton
+    IonButton,
+    IonButtons,
+    IonIcon
   ]
 })
 export class HomePage implements OnInit {
@@ -80,5 +84,9 @@ export class HomePage implements OnInit {
 
   openDetails(movieId: number) {
     this.router.navigate(['/movie-details', movieId]);
+  }
+
+  openFavourites() {
+    this.router.navigate(['/favourites']);
   }
 }
