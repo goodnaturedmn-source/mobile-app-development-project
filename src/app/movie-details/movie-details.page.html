@@ -1,25 +1,15 @@
 <ion-header>
   <ion-toolbar color="dark">
     <ion-title>
-      Movie App
+      Movie Details
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
 
-  <ion-searchbar
-    [(ngModel)]="searchText"
-    placeholder="Search movie..."
-  ></ion-searchbar>
+  <ion-card *ngIf="movie">
 
-  <ion-button expand="block" (click)="searchMovies()">
-    SEARCH
-  </ion-button>
-
-  <h1>Today's Trending Movies</h1>
-
-<ion-card *ngFor="let movie of movies" (click)="openDetails(movie.id)">
     <img
       [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
     >
@@ -31,6 +21,7 @@
     </ion-card-header>
 
     <ion-card-content>
+
       <p>
         Release Date:
         {{ movie.release_date }}
@@ -44,6 +35,7 @@
       <p>
         {{ movie.overview }}
       </p>
+
     </ion-card-content>
 
   </ion-card>

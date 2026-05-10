@@ -1,8 +1,10 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
 import {
   IonHeader,
   IonToolbar,
@@ -12,7 +14,7 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonCardContent,
-  IonInput,
+  IonSearchbar,
   IonButton
 } from '@ionic/angular/standalone';
 
@@ -32,7 +34,7 @@ import {
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
-    IonInput,
+    IonSearchbar,
     IonButton
   ]
 })
@@ -42,7 +44,10 @@ export class HomePage implements OnInit {
   searchText: string = '';
   heading: string = "Today's Trending Movies";
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.loadMovies();
@@ -71,5 +76,9 @@ export class HomePage implements OnInit {
       .subscribe((response: any) => {
         this.movies = response.results;
       });
+  }
+
+  openDetails(movieId: number) {
+    this.router.navigate(['/movie-details', movieId]);
   }
 }
