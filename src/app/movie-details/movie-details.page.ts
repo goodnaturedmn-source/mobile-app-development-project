@@ -11,10 +11,12 @@ import {
   IonCard,
   IonCardContent,
   IonCardHeader,
-  IonCardTitle
+  IonCardTitle,
+  IonButton
 } from '@ionic/angular/standalone';
 
 import { environment } from 'src/environments/environment';
+import { Favourites } from '../services/favourites';
 
 @Component({
   selector: 'app-movie-details',
@@ -30,7 +32,8 @@ import { environment } from 'src/environments/environment';
     IonCard,
     IonCardContent,
     IonCardHeader,
-    IonCardTitle
+    IonCardTitle,
+    IonButton
   ]
 })
 export class MovieDetailsPage implements OnInit {
@@ -40,7 +43,8 @@ export class MovieDetailsPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private favouritesService: Favourites
   ) {}
 
   ngOnInit() {
@@ -52,5 +56,17 @@ export class MovieDetailsPage implements OnInit {
       .subscribe((response) => {
         this.movie = response;
       });
+  }
+
+  addToFavourites() {
+    this.favouritesService.addFavourite(this.movie);
+  }
+
+  removeFromFavourites() {
+    this.favouritesService.removeFavourite(this.movie.id);
+  }
+
+  isFavourite(): boolean {
+    return this.favouritesService.isFavourite(this.movie.id);
   }
 }
