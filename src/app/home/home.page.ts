@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import {
   IonHeader,
   IonToolbar,
@@ -9,9 +11,10 @@ import {
   IonCard,
   IonCardHeader,
   IonCardTitle,
-  IonCardContent
+  IonCardContent,
+  IonInput,
+  IonButton
 } from '@ionic/angular/standalone';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +23,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     IonHeader,
     IonToolbar,
     IonTitle,
@@ -27,12 +31,16 @@ import { CommonModule } from '@angular/common';
     IonCard,
     IonCardHeader,
     IonCardTitle,
-    IonCardContent
+    IonCardContent,
+    IonInput,
+    IonButton
   ]
 })
 export class HomePage implements OnInit {
 
   movies: any[] = [];
+  searchText: string = '';
+  heading: string = "Today's Trending Movies";
 
   constructor(private http: HttpClient) {}
 
@@ -41,8 +49,25 @@ export class HomePage implements OnInit {
   }
 
   loadMovies() {
+    this.heading = "Today's Trending Movies";
+
     this.http
-      .get(`https://api.themoviedb.org/3/movie/popular?api_key=${environment.apiKey}`)
+      .get(`https://api.themoviedb.org/3/trending/movie/day?api_key=${environment.apiKey}`)
+      .subscribe((response: any) => {
+        this.movies = response.results;
+      });
+  }
+
+  searchMovies() {
+    if (this.searchText.trim() === '') {
+      this.loadMovies();
+      return;
+    }
+
+    this.heading = `${this.searchText} Movies`;
+
+    this.http
+      .get(`https://api.themoviedb.org/3/search/movie?query=${this.searchText}&api_key=${environment.apiKey}`)
       .subscribe((response: any) => {
         this.movies = response.results;
       });

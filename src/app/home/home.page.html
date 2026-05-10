@@ -1,24 +1,43 @@
 <ion-header>
   <ion-toolbar color="dark">
-    <ion-title>G00439365 Movie App</ion-title>
+    <ion-title>
+      Movie App
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <h2>Today's Trending Movies</h2>
+
+  <ion-input
+    [(ngModel)]="searchText"
+    placeholder="Search movie..."
+  >
+  </ion-input>
+
+  <br>
+
+  <ion-button expand="block" (click)="searchMovies()">
+    Search
+  </ion-button>
+
+  <h1>{{ heading }}</h1>
 
   <ion-card *ngFor="let movie of movies">
+
     <img
-      *ngIf="movie.poster_path"
       [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
     />
 
     <ion-card-header>
-      <ion-card-title>{{ movie.title }}</ion-card-title>
+      <ion-card-title>
+        {{ movie.title }}
+      </ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
       {{ movie.overview }}
     </ion-card-content>
+
   </ion-card>
+
 </ion-content>
